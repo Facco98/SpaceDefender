@@ -3,7 +3,7 @@
 //  SpaceDefender
 //
 //  Created by Claudio Facchinetti on 26/07/18.
-//  Copyright Â© 2018 Claudio Facchinetti. All rights reserved.
+//  Copyright © 2018 Claudio Facchinetti. All rights reserved.
 //
 
 import UIKit
@@ -28,8 +28,8 @@ class ShuttleCharacter: CharacterGameElement {
         self.physicsBody?.allowsRotation = false
         self.physicsBody?.usesPreciseCollisionDetection = true;
         self.physicsBody?.categoryBitMask = BodyTypes.player.rawValue
-        //self.physicsBody?.collisionBitMask = BodyTypes.alien.rawValue
-        //self.physicsBody?.contactTestBitMask = BodyTypes.alien.rawValue
+        self.physicsBody?.collisionBitMask = BodyTypes.alien.rawValue
+        self.physicsBody?.contactTestBitMask = BodyTypes.alien.rawValue
         self.shootTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
             
             let bullet: BulletCharacter = BulletCharacter(type: .simple)
