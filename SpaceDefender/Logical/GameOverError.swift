@@ -8,7 +8,7 @@
 
 import Foundation
 
-class HitPointsReachedZeroError: NSError{
+class GameOverError: Error{
     
     
     

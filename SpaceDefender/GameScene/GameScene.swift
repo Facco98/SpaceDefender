@@ -14,6 +14,7 @@ enum BodyTypes: UInt32{
     case player = 1
     case alien = 2
     case bullet = 3
+    case deadAlien = 4
     
 }
 
@@ -50,8 +51,17 @@ class GameScene: SKScene {
         for node in self.children{
             
             if let node = node as? CharacterGameElement{
-                
-                node.doDefaultAction()
+                do{
+                try node.doDefaultAction()
+                } catch {
+                    
+                    if let error = error as? AlienExitedScreenError {
+                        
+                        print("Punteggio -1")
+                        
+                    }
+                    
+                }
                 
             }
             
@@ -106,48 +116,29 @@ extension GameScene: SKPhysicsContactDelegate{
         let isAlienInvolved = contact.bodyA.categoryBitMask == BodyTypes.alien.rawValue || contact.bodyB.categoryBitMask == BodyTypes.alien.rawValue
         let isBulletInvolved = (contact.bodyA.categoryBitMask == BodyTypes.bullet.rawValue || contact.bodyB.categoryBitMask == BodyTypes.bullet.rawValue)
         
-        if isPlayerInvolved {
+        for node in [contact.bodyA.node, contact.bodyB.node]{
             
-            do{
-                self.shuttle.removeAllActions()
-                try self.shuttle.hit()
-
-            } catch {
+            if let node = node as? CharacterGameElement{
                 
-                print("GameOver")
-                
+                do{
+                    try node.hit()
+                } catch{
+                    
+                    if let error = error as? AlienExitedScreenError{
+                        
+                        print("Vite -1")
+                        
+                    }
+                    else if let error = error as? GameOverError{
+                        
+                        print("GameOver")
+                        
+                    }
+                    
+                }
             }
             
         }
-        
-        if isBulletInvolved{
-            
-            let bullet: BulletCharacter = (contact.bodyA.categoryBitMask == BodyTypes.bullet.rawValue) ? (contact.bodyA.node as! BulletCharacter) : (contact.bodyB.node as! BulletCharacter)
-            
-            do{
-                try bullet.hit()
-            } catch {
-                
-                bullet.removeFromParent()
-                
-            }
-            
-            
-        }
-        
-        if( isAlienInvolved ){
-        
-            let alien: AlienCharacter = (contact.bodyA.categoryBitMask == BodyTypes.alien.rawValue) ? (contact.bodyA.node as! AlienCharacter) : (contact.bodyB.node as! AlienCharacter)
-            
-            do{
-                
-                try alien.hit()
-                
-            } catch {
-                alien.removeFromParent()
-            }
-        }
-        
         
     }
     

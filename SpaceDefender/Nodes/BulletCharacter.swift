@@ -50,6 +50,10 @@ extension BulletCharacter: ActionDelegate{
         }
     }
     
+    func nodeDied(_ node: SKSpriteNode) {
+        node.removeFromParent()
+    }
+    
     
     
     

@@ -29,7 +29,7 @@ class CharacterGameElement: GameElement {
     
     var alive: Bool{
         
-        return self.hitPoints <= 0
+        return self.hitPoints > 0
         
     }
     
@@ -74,7 +74,13 @@ class CharacterGameElement: GameElement {
         self.hitPoints -= 1
         if( self.hitPoints <= 0 ){
             
-            throw HitPointsReachedZeroError()
+            do{
+                try self.actionsDelegate?.nodeDied(self)
+            } catch {
+                
+                throw error
+                
+            }
             
         }
         
@@ -105,9 +111,13 @@ class CharacterGameElement: GameElement {
         
     }
     
-    public func doDefaultAction(){
+    public func doDefaultAction() throws{
         
-        self.actionsDelegate?.automaticMoveOf(self)
+        do{
+            try self.actionsDelegate?.automaticMoveOf(self)
+        } catch {
+            throw error
+        }
         
     }
     

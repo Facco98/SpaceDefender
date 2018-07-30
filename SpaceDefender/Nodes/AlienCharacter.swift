@@ -51,23 +51,35 @@ class AlienCharacter: CharacterGameElement{
 
 
 extension AlienCharacter: ActionDelegate{
-    func automaticMoveOf(_ node: SKSpriteNode) {
+    func automaticMoveOf(_ node: SKSpriteNode) throws {
         
-        let node = node as! AlienCharacter
-        let offsetY = node.movementPixelPerTick  * (-1)
-        if self.position.y + offsetY < 0 {
-            
-            self.removeFromParent()
-            
-        } else{
-            
-            self.move(withOffsetX: 0, withOffsetY: offsetY)
-            
+        if self.alive {
+            let node = node as! AlienCharacter
+            let offsetY = node.movementPixelPerTick  * (-1)
+            if self.position.y + offsetY < 0 {
+                
+                self.removeFromParent()
+                throw AlienExitedScreenError()
+                
+            } else{
+                
+                self.move(withOffsetX: 0, withOffsetY: offsetY)
+                
+            }
         }
         
     }
     
-    
+    func nodeDied(_ node: SKSpriteNode) throws {
+        
+        node.texture = SKTexture(imageNamed: "spark")
+        node.physicsBody = SKPhysicsBody(texture: node.texture!, size: (node.texture?.size())!)
+        node.physicsBody?.affectedByGravity = false
+        node.physicsBody?.contactTestBitMask = BodyTypes.deadAlien.rawValue
+        node.run(SKAction.playSoundFileNamed("explosion.mp3", waitForCompletion: false)) {
+            node.removeFromParent()
+        }
+    }
     
     
 }

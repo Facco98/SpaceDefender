@@ -11,6 +11,6 @@ import SpriteKit
 
 public protocol ActionDelegate{
     
-    func automaticMoveOf(_ node: SKSpriteNode)
-    
+    func automaticMoveOf (_ node: SKSpriteNode) throws
+    func nodeDied( _ node: SKSpriteNode ) throws
 }
