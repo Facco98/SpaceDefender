@@ -43,9 +43,11 @@ class ShuttleCharacter: CharacterGameElement {
             
             let bullet: BulletCharacter = self.bullet
             bullet.position.x = self.position.x + self.size.width/2
-            bullet.position.y = self.position.y + self.size.height/2 + 100
+            bullet.position.y = self.position.y + self.size.height + 20
             self.parent?.addChild(bullet)
-            self.run(SKAction.playSoundFileNamed("torpedo.mp3", waitForCompletion: false))
+            if SettingsViewController.options[SettingsViewController.fxEffectsOption]!{
+                self.run(SKAction.playSoundFileNamed("torpedo.mp3", waitForCompletion: false))
+            }
             
         })
         self.actionsDelegate = self

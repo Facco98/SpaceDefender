@@ -76,7 +76,11 @@ extension AlienCharacter: ActionDelegate{
         node.physicsBody = SKPhysicsBody(texture: node.texture!, size: (node.texture?.size())!)
         node.physicsBody?.affectedByGravity = false
         node.physicsBody?.contactTestBitMask = BodyTypes.deadAlien.rawValue
-        node.run(SKAction.playSoundFileNamed("explosion.mp3", waitForCompletion: false)) {
+        if SettingsViewController.options[SettingsViewController.fxEffectsOption]!{
+            node.run(SKAction.playSoundFileNamed("explosion.mp3", waitForCompletion: false)) {
+                node.removeFromParent()
+            }
+        } else{
             node.removeFromParent()
         }
     }

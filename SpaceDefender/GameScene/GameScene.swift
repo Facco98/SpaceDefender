@@ -112,9 +112,11 @@ extension GameScene: SKPhysicsContactDelegate{
     
     public func didBegin(_ contact: SKPhysicsContact){
         
+        /*
         let isPlayerInvolved = contact.bodyA.categoryBitMask == BodyTypes.player.rawValue || contact.bodyB.categoryBitMask == BodyTypes.player.rawValue
         let isAlienInvolved = contact.bodyA.categoryBitMask == BodyTypes.alien.rawValue || contact.bodyB.categoryBitMask == BodyTypes.alien.rawValue
         let isBulletInvolved = (contact.bodyA.categoryBitMask == BodyTypes.bullet.rawValue || contact.bodyB.categoryBitMask == BodyTypes.bullet.rawValue)
+         */
         
         for node in [contact.bodyA.node, contact.bodyB.node]{
             

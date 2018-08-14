@@ -15,7 +15,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        let storage = UserDefaults.standard
+        if let settings = storage.dictionary(forKey: SettingsViewController.storageKey) as? [String: Bool]{
+            
+            SettingsViewController.options = settings
+            
+        }
         return true
     }
 
@@ -38,7 +44,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        let storage = UserDefaults.standard
+        storage.set(SettingsViewController.options, forKey: SettingsViewController.storageKey)
     }
 
 
