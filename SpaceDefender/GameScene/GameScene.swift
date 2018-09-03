@@ -21,7 +21,10 @@ enum BodyTypes: UInt32{
 class GameScene: SKScene {
     
     var shuttle: ShuttleCharacter = ShuttleCharacter()
-    private(set) var lblPunteggio: SKLabelNode = SKLabelNode(text: "Punteggio: 0")
+
+    private(set) var score: Int = 0
+    private(set) var killingSpree: Int = 0
+    private(set) weak var spawnTimer: Timer!
     
     override func didMove(to view: SKView) {
         
@@ -29,20 +32,40 @@ class GameScene: SKScene {
         self.physicsWorld.contactDelegate = self
         self.addChild(self.shuttle)
         
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { (timer) in
-            let alien = AlienCharacter(type: .type1)
+        self.spawnTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { (timer) in
+            var type: AlienTypes = .type3
+            let random = arc4random_uniform(100)
+            
+            for key in AlienTypes.probabilties.keys{
+                
+                let probs = AlienTypes.probabilties[key]!
+                if key.contains(self.score){
+                    
+                    if random <= Int(probs["type1"]!){
+                        
+                        type = .type1
+                        
+                    } else if random <= Int(probs["type2"]!){
+                        
+                        type = .type2
+                        
+                    } else {
+                        
+                        type = .type3
+                        
+                    }
+                    
+                }
+                
+            }
+            
+            let alien = AlienCharacter(type: type)
             alien.position.x = CGFloat(arc4random_uniform(UInt32(self.size.width - alien.size.width)))
-            alien.position.y = self.size.height - alien.size.height - 250
+            alien.position.y = self.size.height - alien.size.height - 10
+            alien.movementPixelPerSecond += CGFloat(Double(self.score) / exp(Double(self.killingSpree)))
             self.addChild(alien)
             
         }
-        
-        self.lblPunteggio.horizontalAlignmentMode = .left
-        self.lblPunteggio.verticalAlignmentMode = .top
-        self.lblPunteggio.position.x = self.size.width / 2 * (-1)
-        self.lblPunteggio.position.y = self.size.height / 2
-        
-        self.addChild(self.lblPunteggio)
     
     }
     
@@ -55,9 +78,22 @@ class GameScene: SKScene {
                 try node.doDefaultAction()
                 } catch {
                     
-                    if let error = error as? AlienExitedScreenError {
+                    if let _ = error as? AlienExitedScreenError {
                         
-                        print("Punteggio -1")
+                        do{
+                            
+                            try self.shuttle.hit()
+                            self.killingSpree = 0
+                            self.shuttle.bulletType = .simple
+                        } catch{
+                            
+                            if let _ = error as? GameOverError{
+                                
+                                self.gameOver()
+                                
+                            }
+                            
+                        }
                         
                     }
                     
@@ -66,6 +102,22 @@ class GameScene: SKScene {
             }
             
         }
+    }
+    
+    private func gameOver(){
+        
+        if let timer = self.spawnTimer{
+            
+            timer.invalidate()
+            
+        }
+        
+        if let timer = self.shuttle.shootTimer{
+            
+            timer.invalidate()
+            
+        }
+        
     }
     
     func touchDown(atPoint pos : CGPoint) {
@@ -124,16 +176,30 @@ extension GameScene: SKPhysicsContactDelegate{
                 
                 do{
                     try node.hit()
+                    if let _ = node as? ShuttleCharacter{
+                        
+                        self.killingSpree = 0
+                        self.shuttle.bulletType = .simple
+
+                    } else{
+                        
+                        self.killingSpree += 1
+                        self.score += 1
+                        if self.killingSpree >= BulletType.tripleLimit{
+                            
+                            self.shuttle.bulletType = .triple
+                            
+                        } else if self.killingSpree >= BulletType.doubleLimit{
+                            
+                            self.shuttle.bulletType = .double
+                            
+                        }
+                    }
                 } catch{
                     
-                    if let error = error as? AlienExitedScreenError{
+                    if let _ = error as? GameOverError{
                         
-                        print("Vite -1")
-                        
-                    }
-                    else if let error = error as? GameOverError{
-                        
-                        print("GameOver")
+                        self.gameOver()
                         
                     }
                     

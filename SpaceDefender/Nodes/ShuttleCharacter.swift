@@ -19,7 +19,7 @@ class ShuttleCharacter: CharacterGameElement {
     
     private(set) weak var shootTimer: Timer!
     
-    private var bulletType: BulletType = .simple
+    public var bulletType: BulletType = .simple
     
     public var bullet: BulletCharacter{
         
@@ -41,12 +41,56 @@ class ShuttleCharacter: CharacterGameElement {
         self.physicsBody?.contactTestBitMask = BodyTypes.alien.rawValue
         self.shootTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
             
-            let bullet: BulletCharacter = self.bullet
-            bullet.position.x = self.position.x + self.size.width/2
-            bullet.position.y = self.position.y + self.size.height + 20
-            self.parent?.addChild(bullet)
+            var bullets: [BulletCharacter] = [BulletCharacter]()
+            switch self.bulletType{
+                
+            case .triple:
+                print("Creato triple")
+                let bullet: BulletCharacter = self.bullet
+                bullet.position.x = self.position.x + self.size.width/2 - bullet.size.width / 2
+                bullet.position.y = self.position.y + self.size.height + 40
+                bullets.append(bullet)
+                let bullet1 = BulletCharacter(type: self.bulletType)
+                bullet1.position.x = self.position.x - bullet1.size.width / 2.0
+                bullet1.position.y = self.position.y + self.size.height + 20
+                bullets.append(bullet1)
+                let bullet3 = BulletCharacter( type: self.bulletType )
+                bullet3.position.x = self.position.x + self.size.width - bullet3.size.width/2.0
+                bullet3.position.y = self.position.y + self.size.height + 20
+                bullets.append(bullet3)
+                
+            case .simple:
+                
+                let bullet: BulletCharacter = self.bullet
+                bullet.position.x = self.position.x + self.size.width/2 - bullet.size.width/2
+                bullet.position.y = self.position.y + self.size.height + 20
+                bullets.append(bullet)
+            
+                
+            case .double:
+                
+                let bullet = BulletCharacter(type: self.bulletType)
+                bullet.position.x = self.position.x - bullet.size.width / 2.0
+                bullet.position.y = self.position.y + self.size.height + 40
+                bullets.append(bullet)
+                let bullet2 = BulletCharacter( type: self.bulletType )
+                bullet2.position.x = self.position.x + self.size.width - bullet.size.width/2
+                bullet2.position.y = self.position.y + self.size.height + 40
+                bullets.append(bullet2)
+            
+           
+            }
+            
             if SettingsViewController.options[SettingsViewController.fxEffectsOption]!{
+                
                 self.run(SKAction.playSoundFileNamed("torpedo.mp3", waitForCompletion: false))
+                
+            }
+            
+            for bullet in bullets{
+                
+                self.parent?.addChild(bullet)
+                
             }
             
         })

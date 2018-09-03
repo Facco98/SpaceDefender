@@ -12,7 +12,7 @@ import SpriteKit
 class AlienCharacter: CharacterGameElement{
     
     public static let selfTextures: [String] = ["alien", "alien2", "alien3"]
-    public static let defaultAlienMovementPixelPerSecond: [CGFloat] = [100, 150, 200]
+    public static let defaultAlienMovementPixelPerSecond: [CGFloat] = [100, 120, 150]
     public static let defaultAlienHitPoints: [UInt] = [1,2,3]
     
 

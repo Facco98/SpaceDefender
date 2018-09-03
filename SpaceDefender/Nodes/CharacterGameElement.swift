@@ -16,7 +16,7 @@ class CharacterGameElement: GameElement {
     internal static var defaultHitPoints: UInt = 10
     
     private(set) var hitPoints: Int
-    private(set) var movementPixelPerSecond: CGFloat
+    public var movementPixelPerSecond: CGFloat
     
     public var actionsDelegate: ActionDelegate?
     
@@ -98,17 +98,19 @@ class CharacterGameElement: GameElement {
     
     public func move( to point: CGPoint ){
         
-        let validX: Bool = point.x >= 0 && point.x <= (self.scene?.size.width)! - self.size.width
-        let validY: Bool = point.y >= 0 && point.y <= (self.scene?.size.height)! - self.size.height
-        
-        if validX && validY{
-            let distanceX = self.position.x - point.x
-            let distanceY = self.position.y - point.y
-            let distance = sqrt( distanceY * distanceY + distanceX * distanceX )
-            let interval = TimeInterval(distance/self.movementPixelPerSecond)
-            self.run(SKAction.move(to: point, duration: interval))
+        if let scene = self.parent?.scene{
+            let validX: Bool = point.x >= 0 && point.x <= scene.size.width - self.size.width
+            let validY: Bool = point.y >= 0 && point.y <= scene.size.height - self.size.height
+            
+            if validX && validY{
+                let distanceX = self.position.x - point.x
+                let distanceY = self.position.y - point.y
+                let distance = sqrt( distanceY * distanceY + distanceX * distanceX )
+                let interval = TimeInterval(distance/self.movementPixelPerSecond)
+                self.run(SKAction.move(to: point, duration: interval))
+            }
+            
         }
-        
     }
     
     public func doDefaultAction() throws{
