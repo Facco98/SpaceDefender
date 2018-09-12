@@ -27,6 +27,8 @@
 		38DC9181210CBC4400DBCF80 /* BulletCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DC9180210CBC4400DBCF80 /* BulletCharacter.swift */; };
 		38DC9183210CBCF100DBCF80 /* GameElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DC9182210CBCF100DBCF80 /* GameElement.swift */; };
 		38DC9185210CBE8000DBCF80 /* BulletType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DC9184210CBE8000DBCF80 /* BulletType.swift */; };
+		38E7A099214911E200C702FC /* EndingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E7A098214911E200C702FC /* EndingViewController.swift */; };
+		38E7A09B21491E3D00C702FC /* MenuNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E7A09A21491E3D00C702FC /* MenuNavigationController.swift */; };
 		38F046B7210F2DF40079B6B8 /* explosion.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 38F046B5210F2DF40079B6B8 /* explosion.mp3 */; };
 		38F046B8210F2DF40079B6B8 /* torpedo.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 38F046B6210F2DF40079B6B8 /* torpedo.mp3 */; };
 		38F046BA210F318F0079B6B8 /* AlienExitedScreenError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F046B9210F318F0079B6B8 /* AlienExitedScreenError.swift */; };
@@ -55,6 +57,8 @@
 		38DC9180210CBC4400DBCF80 /* BulletCharacter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BulletCharacter.swift; sourceTree = "<group>"; };
 		38DC9182210CBCF100DBCF80 /* GameElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameElement.swift; sourceTree = "<group>"; };
 		38DC9184210CBE8000DBCF80 /* BulletType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BulletType.swift; sourceTree = "<group>"; };
+		38E7A098214911E200C702FC /* EndingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndingViewController.swift; sourceTree = "<group>"; };
+		38E7A09A21491E3D00C702FC /* MenuNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuNavigationController.swift; sourceTree = "<group>"; };
 		38F046B5210F2DF40079B6B8 /* explosion.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = explosion.mp3; sourceTree = "<group>"; };
 		38F046B6210F2DF40079B6B8 /* torpedo.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = torpedo.mp3; sourceTree = "<group>"; };
 		38F046B9210F318F0079B6B8 /* AlienExitedScreenError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlienExitedScreenError.swift; sourceTree = "<group>"; };
@@ -154,6 +158,8 @@
 				38C26E2A212392D100C76888 /* FirstViewController.swift */,
 				38C26E2D2123961300C76888 /* SettingsViewController.swift */,
 				38C26E2F2123984E00C76888 /* SettingsTableViewCell.swift */,
+				38E7A098214911E200C702FC /* EndingViewController.swift */,
+				38E7A09A21491E3D00C702FC /* MenuNavigationController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -237,8 +243,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				38F046BA210F318F0079B6B8 /* AlienExitedScreenError.swift in Sources */,
+				38E7A099214911E200C702FC /* EndingViewController.swift in Sources */,
 				382653F1210A075100584777 /* ShuttleCharacter.swift in Sources */,
 				38DC9185210CBE8000DBCF80 /* BulletType.swift in Sources */,
+				38E7A09B21491E3D00C702FC /* MenuNavigationController.swift in Sources */,
 				38DC9181210CBC4400DBCF80 /* BulletCharacter.swift in Sources */,
 				38BF6F4F210CA4D2008A94BC /* ActionDelegate.swift in Sources */,
 				38DC9183210CBCF100DBCF80 /* GameElement.swift in Sources */,

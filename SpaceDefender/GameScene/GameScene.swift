@@ -25,8 +25,11 @@ class GameScene: SKScene {
     private(set) var score: Int = 0
     private(set) var killingSpree: Int = 0
     private(set) weak var spawnTimer: Timer!
+    private var gameOverInstant: Bool = true;
+    public weak var viewController: UIViewController!
     
     override func didMove(to view: SKView) {
+    
         
         self.anchorPoint = .zero
         self.physicsWorld.contactDelegate = self
@@ -66,6 +69,7 @@ class GameScene: SKScene {
             self.addChild(alien)
             
         }
+        
     
     }
     
@@ -118,12 +122,22 @@ class GameScene: SKScene {
             
         }
         
+        Swift.print("Game Over")
+        self.viewController.performSegue(withIdentifier: "showEnding", sender: self)
+        
+        
     }
     
     func touchDown(atPoint pos : CGPoint) {
         
         
         self.shuttle.move(to: pos)
+        
+    }
+    
+    deinit{
+        
+        Swift.print("Scene deinited")
         
     }
     

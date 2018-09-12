@@ -17,12 +17,13 @@ class GameViewController: UIViewController {
         
         if let view = self.view as! SKView? {
             // Load the SKScene from 'GameScene.sks'
-            if let scene = SKScene(fileNamed: "GameScene") {
+            if let scene = SKScene(fileNamed: "GameScene") as? GameScene {
                 // Set the scale mode to scale to fit the window
                 scene.scaleMode = .aspectFill
                 
                 // Present the scene
                 view.presentScene(scene)
+                scene.viewController = self
             }
             
             view.ignoresSiblingOrder = true
@@ -52,4 +53,15 @@ class GameViewController: UIViewController {
     override var prefersStatusBarHidden: Bool {
         return true
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if let sender = sender as? GameScene, let destination = segue.destination as? EndingViewController{
+            
+            destination.punteggio = sender.score
+            
+        }
+        
+    }
+    
 }

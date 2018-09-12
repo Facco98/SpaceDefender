@@ -11,10 +11,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Navigation Controller-->
+        <!--Menu Navigation Controller-->
         <scene sceneID="xym-Vr-D0W">
             <objects>
-                <navigationController id="pU1-j3-3DV" sceneMemberID="viewController">
+                <navigationController id="pU1-j3-3DV" customClass="MenuNavigationController" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="jdg-gg-kb4">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -70,15 +70,25 @@
                                     <action selector="btnSettingsDidTap:" destination="uQv-sS-Egs" eventType="touchUpInside" id="eaF-PN-jLb"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Miglior punteggio" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VNX-FE-2PJ">
+                                <rect key="frame" x="5" y="127" width="375" height="50.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="L1d-cQ-rYZ" firstAttribute="trailing" secondItem="8AO-sP-6gc" secondAttribute="trailing" id="4Ae-u2-sbX"/>
                             <constraint firstItem="8AO-sP-6gc" firstAttribute="leading" secondItem="L1d-cQ-rYZ" secondAttribute="leading" id="5hp-pp-8oZ"/>
+                            <constraint firstItem="cLG-cN-Zcb" firstAttribute="top" secondItem="VNX-FE-2PJ" secondAttribute="bottom" constant="20.5" id="6zB-nz-n2g"/>
                             <constraint firstItem="hZt-nW-cEk" firstAttribute="leading" secondItem="L1d-cQ-rYZ" secondAttribute="leading" constant="10" id="Aw9-bx-fNy"/>
                             <constraint firstItem="8AO-sP-6gc" firstAttribute="top" secondItem="L1d-cQ-rYZ" secondAttribute="top" constant="5" id="FUt-kZ-xJA"/>
                             <constraint firstItem="cLG-cN-Zcb" firstAttribute="leading" secondItem="L1d-cQ-rYZ" secondAttribute="leading" constant="10" id="Fbh-Mh-SPw"/>
+                            <constraint firstItem="VNX-FE-2PJ" firstAttribute="leading" secondItem="L1d-cQ-rYZ" secondAttribute="leading" constant="5" id="FlT-Bj-GdC"/>
                             <constraint firstItem="L1d-cQ-rYZ" firstAttribute="trailing" secondItem="hZt-nW-cEk" secondAttribute="trailing" constant="10" id="PZJ-6w-vwo"/>
+                            <constraint firstItem="VNX-FE-2PJ" firstAttribute="top" secondItem="8AO-sP-6gc" secondAttribute="bottom" constant="7.5" id="UVI-6n-67s"/>
+                            <constraint firstItem="VNX-FE-2PJ" firstAttribute="trailing" secondItem="L1d-cQ-rYZ" secondAttribute="trailing" constant="5" id="XYl-o8-jLN"/>
                             <constraint firstItem="cLG-cN-Zcb" firstAttribute="leading" secondItem="L1d-cQ-rYZ" secondAttribute="leading" constant="10" id="hfz-jx-MXM"/>
                             <constraint firstItem="L1d-cQ-rYZ" firstAttribute="trailing" secondItem="cLG-cN-Zcb" secondAttribute="trailing" constant="10" id="hoy-ac-qci"/>
                             <constraint firstItem="hZt-nW-cEk" firstAttribute="top" secondItem="cLG-cN-Zcb" secondAttribute="bottom" constant="32" id="lcR-uV-Rsh"/>
@@ -91,6 +101,7 @@
                     <connections>
                         <outlet property="btnPlay" destination="cLG-cN-Zcb" id="JVR-co-jko"/>
                         <outlet property="btnSettings" destination="hZt-nW-cEk" id="tET-wM-e8e"/>
+                        <outlet property="lblMigliorPunteggio" destination="VNX-FE-2PJ" id="UN7-Kp-qzn"/>
                         <segue destination="BV1-FR-VrT" kind="presentation" identifier="startGameSegue" id="AjT-vi-sry"/>
                         <segue destination="1gT-wh-MA5" kind="show" identifier="showSettingsSegue" id="0Ci-en-Q8x"/>
                     </connections>
@@ -109,10 +120,62 @@
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="4qk-I5-YsI"/>
                     </view>
+                    <connections>
+                        <segue destination="Y9x-RT-I9E" kind="show" identifier="showEnding" id="SDl-e8-RZB"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-212" y="-332"/>
+        </scene>
+        <!--Ending View Controller-->
+        <scene sceneID="qcf-em-ela">
+            <objects>
+                <viewController id="Y9x-RT-I9E" customClass="EndingViewController" customModule="SpaceDefender" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="9c7-b5-S6I">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Punteggio" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GYb-98-IR2">
+                                <rect key="frame" x="0.0" y="38" width="375" height="50.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="42"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" alpha="0.75" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bzq-hb-3ma">
+                                <rect key="frame" x="10" y="128" width="355" height="55"/>
+                                <color key="backgroundColor" red="1" green="0.41929947249999999" blue="0.28288380819999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                <state key="normal" title="Back">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnBackDidTap:" destination="Y9x-RT-I9E" eventType="touchUpInside" id="sED-dZ-JJn"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.43529412150000002" green="0.4431372583" blue="0.47450980539999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Bzq-hb-3ma" firstAttribute="leading" secondItem="NcO-DG-4et" secondAttribute="leading" id="2DC-2v-dcj"/>
+                            <constraint firstItem="GYb-98-IR2" firstAttribute="leading" secondItem="NcO-DG-4et" secondAttribute="leading" id="3Xc-iw-aZZ"/>
+                            <constraint firstItem="NcO-DG-4et" firstAttribute="trailing" secondItem="GYb-98-IR2" secondAttribute="trailing" id="Gsy-CP-xs6"/>
+                            <constraint firstItem="Bzq-hb-3ma" firstAttribute="top" secondItem="GYb-98-IR2" secondAttribute="bottom" constant="39.5" id="KVz-as-ryN"/>
+                            <constraint firstItem="GYb-98-IR2" firstAttribute="top" secondItem="NcO-DG-4et" secondAttribute="top" constant="18" id="XSq-ms-GFC"/>
+                            <constraint firstItem="NcO-DG-4et" firstAttribute="trailing" secondItem="Bzq-hb-3ma" secondAttribute="trailing" constant="10" id="YNJ-ob-veJ"/>
+                            <constraint firstItem="NcO-DG-4et" firstAttribute="trailing" secondItem="Bzq-hb-3ma" secondAttribute="trailing" id="lpF-nh-Exe"/>
+                            <constraint firstItem="Bzq-hb-3ma" firstAttribute="leading" secondItem="NcO-DG-4et" secondAttribute="leading" constant="10" id="zvj-5W-fhF"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="NcO-DG-4et"/>
+                    </view>
+                    <connections>
+                        <outlet property="lblPunteggio" destination="GYb-98-IR2" id="Pkh-D3-tZJ"/>
+                        <segue destination="Azp-h8-vTK" kind="unwind" identifier="restart" unwindAction="unwindToThisWithSegue:" id="tT6-im-mCx"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="h0D-FQ-5Ji" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Azp-h8-vTK" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="972" y="-332"/>
         </scene>
         <!--Settings-->
         <scene sceneID="bvk-Ia-sam">

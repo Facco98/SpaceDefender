@@ -22,6 +22,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             SettingsViewController.options = settings
             
         }
+        
+        let bestScore = storage.integer(forKey: FirstViewController.bestScoreKey)
+        FirstViewController.bestScore = bestScore
+        
         return true
     }
 
@@ -46,6 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         let storage = UserDefaults.standard
         storage.set(SettingsViewController.options, forKey: SettingsViewController.storageKey)
+        storage.set(FirstViewController.bestScore, forKey: FirstViewController.bestScoreKey)
     }
 
 

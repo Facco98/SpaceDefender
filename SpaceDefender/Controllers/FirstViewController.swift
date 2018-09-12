@@ -10,13 +10,18 @@ import UIKit
 
 class FirstViewController: UIViewController {
 
+    public static let bestScoreKey: String = "bestScore"
+    
     @IBOutlet weak var btnPlay: UIButton!
     @IBOutlet weak var btnSettings: UIButton!
     
+    @IBOutlet weak var lblMigliorPunteggio: UILabel!
+    
+    public static var bestScore: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.updateItems()
         // Do any additional setup after loading the view.
     }
 
@@ -35,6 +40,28 @@ class FirstViewController: UIViewController {
     @IBAction func btnSettingsDidTap(_ sender: UIButton) {
         
         self.performSegue(withIdentifier: "showSettingsSegue", sender: self)
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if let destination = segue.destination as? GameViewController{
+            
+            destination.view = nil
+            
+        }
+        
+    }
+    
+    @IBAction func unwindToThis( segue: UIStoryboardSegue ){
+        
+        self.updateItems()
+        
+    }
+    
+    private func updateItems(){
+        
+        self.lblMigliorPunteggio.text = "Miglior punteggio: \(FirstViewController.bestScore)"
         
     }
     
